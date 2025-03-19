@@ -1400,7 +1400,7 @@ function or(l, r)
 
 self.C3_ExpressionFuncs = [
 		() => "Init",
-		() => "const parent = window.parent.window;\n\n// Call the loading method without passing a value to start displaying the loading process\nparent.postMessage({ playdeck: { method: 'loading' } }, '*');\n\n// Delay setting the loading to 100% by 1 second\nsetTimeout(() => {\n    parent.postMessage({ playdeck: { method: 'loading', value: 100 } }, '*');\n}, 1000);\n",
+		() => "const parent = window.parent.window;\n\n// Call the loading method without passing a value to start displaying the loading process\nparent.postMessage({ playdeck: { method: 'loading' } }, '*');\n\n// Delay setting the loading to 100% by 1 second\nsetTimeout(() => {\n    parent.postMessage({ playdeck: { method: 'loading', value: 100 } }, '*');\n}, 5000);\n",
 		() => 0,
 		() => "sequences",
 		p => {
@@ -1504,12 +1504,12 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "Dialog",
 		() => "Dialog Logic",
+		() => "const parent = window.parent.window;\nparent.postMessage({ playdeck: { method: 'gameEnd' } }, '*');",
 		() => "const { parent } = window;\nparent.postMessage({ playdeck: { method: 'showAd'} }, '*');\n\nwindow.addEventListener('message', ({ data }) => {\n    const playdeck = data?.playdeck;\n    if (!playdeck) return;\n\n    if (playdeck.method === 'rewardedAd') {\n        console.log(playdeck.value); // User watched the ad\n    }\n    if (playdeck.method === 'errAd') {\n        console.log(playdeck.value); // Something went wrong\n    }\n    if (playdeck.method === 'skipAd') {\n        console.log(playdeck.value); // User skipped the ad\n    }\n    if (playdeck.method === 'notFoundAd') {\n        console.log(playdeck.value); // No ads available\n    }\n    if (playdeck.method === 'startAd') {\n        console.log(playdeck.value); // User started watching ad\n    }\n});\n",
 		() => "MyStuff",
 		() => 12,
 		() => "PlayDeck",
 		() => "const parent = window.parent.window;\nparent.postMessage({ playdeck: { method: 'getPlaydeckState' } }, '*');\n\nwindow.addEventListener('message', ({ data }) => {\n  const playdeck = data?.playdeck;\n  if (!playdeck) return;\n\n  if (playdeck.method === 'getPlaydeckState') {\n    window.isPlayDeckOpened = playdeck.value; // `value` === true or false;\n  }\n});\n",
-		() => "window.addEventListener('message', ({ data }) => {\n    const playdeck = data?.playdeck;\n    if (!playdeck) return;\n\n    if (playdeck.method === 'rewardedAd') {\n        console.log('User watched the full ad.');\n        runtime.callFunction('OnAdWatched');\n    }\n    if (playdeck.method === 'errAd') {\n        console.log('Ad error: ' + playdeck.value);\n        runtime.callFunction('OnAdError');\n    }\n    if (playdeck.method === 'skipAd') {\n        console.log('User skipped the ad.');\n        runtime.callFunction('OnAdSkipped');\n    }\n    if (playdeck.method === 'notFoundAd') {\n        console.log('No ad available.');\n        runtime.callFunction('OnAdNotFound');\n    }\n    if (playdeck.method === 'startAd') {\n        console.log('Ad started.');\n        runtime.callFunction('OnAdStarted');\n    }\n});",
 		() => "\n\ntype Profile = {\n  avatar: string,\n  username: string,\n  firstName: string,\n  lastName: string,\n  telegramId: number,\n  locale: 'en' | 'ru',\n  token: string, // You can read more about our jwt token https://github.com/ton-play/playdeck-integration-guide/wiki/4.--User-JWT\n  params: { [key: string]: string }, // You can create a link with a query string to the game using the method customShare or getShareLink\n  sessionId: string,\n  currentGameStarted: number\n};\n\nconst parent = window.parent.window;\nparent.postMessage({ playdeck: { method: 'getUserProfile' } }, '*');\n\nwindow.addEventListener('message', ({ data }) => {\n  const playdeck = data?.playdeck;\n  if (!playdeck) return;\n\n  if (playdeck.method === 'getUserProfile') {\n    console.log(playdeck.value); // Profile\n  }\n});",
 		() => "  /**\n  * Recording a new game session. If your game has short sessions (for example, floppy bird), \n  * then count each attempt as a new session\n  */\n  sendAnalyticNewSession: () => void"
 ];
