@@ -1400,7 +1400,6 @@ function or(l, r)
 
 self.C3_ExpressionFuncs = [
 		() => "Init",
-		() => "const { parent } = window;\nparent.postMessage({ playdeck: { method: 'getToken' } }, '*');\n\nwindow.addEventListener('message', ({ data }) => {\n    const playdeck = data?.playdeck;\n    if (!playdeck) return;\n\n    if (playdeck.method === 'getToken') {\n        console.log(playdeck.value); // { token: '123456789...' }\n    }\n});\n",
 		() => "const parent = window.parent.window;\nparent.postMessage({ playdeck: { method: 'loading' } }, '*');\n\nsetTimeout(() => {\n    parent.postMessage({ playdeck: { method: 'loading', value: 100 } }, '*');\n}, 1000);",
 		() => "const parent = window.parent.window;\nparent.postMessage({ playdeck: { method: 'getPlaydeckState' } }, '*');\n\nwindow.addEventListener('message', ({ data }) => {\n    const playdeck = data?.playdeck;\n    if (!playdeck) return;\n\n    if (playdeck.method === 'getPlaydeckState') {\n        window.isPlayDeckOpened = playdeck.value; // true or false\n    }\n});\n",
 		() => 0,
