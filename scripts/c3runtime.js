@@ -1400,8 +1400,7 @@ function or(l, r)
 
 self.C3_ExpressionFuncs = [
 		() => "Init",
-		() => "const parent = window.parent.window;\nparent.postMessage({ playdeck: { method: 'loading' } }, '*');\n\nsetTimeout(() => {\n    parent.postMessage({ playdeck: { method: 'loading', value: 100 } }, '*');\n}, 1000);",
-		() => "const parent = window.parent.window;\nparent.postMessage({ playdeck: { method: 'getPlaydeckState' } }, '*');\n\nwindow.addEventListener('message', ({ data }) => {\n    const playdeck = data?.playdeck;\n    if (!playdeck) return;\n\n    if (playdeck.method === 'getPlaydeckState') {\n        window.isPlayDeckOpened = playdeck.value; // true or false\n    }\n});\n",
+		() => "const parent = window.parent.window;\n\n// Call the loading method without passing a value to start displaying the loading process\nparent.postMessage({ playdeck: { method: 'loading' } }, '*');\n\n// Delay setting the loading to 100% by 1 second\nsetTimeout(() => {\n    parent.postMessage({ playdeck: { method: 'loading', value: 100 } }, '*');\n}, 1000);\n",
 		() => 0,
 		() => "sequences",
 		p => {
